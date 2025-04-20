@@ -1,163 +1,69 @@
-// Main Controller for Dhemhi Brand Website
+// Enhanced Dhemhi Brand Controller with Content Visibility Fix
 class DhemhiBrand {
     constructor() {
-      // Store references to key elements
-      this.elements = {
-        body: document.body,
-        html: document.documentElement,
-        mainNav: document.querySelector('.main-nav'),
-        menuToggle: document.querySelector('.mobile-menu-toggle'),
-        hero: document.querySelector('.hero'),
-        form: document.querySelector('.freebie-form'),
-        header: document.querySelector('header')
-      };
-  
-      // Initialize all functionality with error handling
-      this.initCoreFeatures();
-      this.initEnhancements();
+      // First make sure all content is visible
+      this.ensureContentVisibility();
       
-      console.log("%c Dhemhi Brand %c Powered by AJB ", 
+      // Then initialize all functionality
+      this.initSmoothScrolling();
+      this.initMobileMenu();
+      this.initScrollAnimations();
+      this.initInteractiveElements();
+      this.initFormValidation();
+      this.initDynamicCursor();
+      this.initMicroInteractions();
+      
+      console.log("%c Dhemhi Brand %c Ready for Success ", 
         "background: #A0009E; color: white; font-size: 16px; font-weight: bold; padding: 5px 10px;", 
         "background: #FF9F1C; color: #1A132F; font-size: 16px; font-weight: bold; padding: 5px 10px;");
     }
   
-    initCoreFeatures() {
-      // Core features that affect content visibility
-      try {
-        this.initScrollAnimations(); // Should run first to prevent FOUC
-        this.initMobileMenu();
-        this.initLazyLoading();
-        this.initSmoothScrolling();
-      } catch (error) {
-        console.error('Error initializing core features:', error);
-      }
+    // 0. First ensure all content is visible
+    ensureContentVisibility() {
+      // Remove any hiding styles that might have been set
+      document.querySelectorAll('body, .section, .feature-card, .testimonial-card, .freebie-card')
+        .forEach(el => {
+          el.style.opacity = '';
+          el.style.transform = '';
+          el.style.transition = '';
+        });
     }
   
-    initEnhancements() {
-      // Progressive enhancements that can fail without breaking the site
-      try {
-        this.initParallaxEffects();
-        this.initInteractiveElements();
-        this.initFormValidation();
-        this.initPageTransitions();
-        this.initDynamicCursor();
-        this.initMicroInteractions();
-        this.initServiceWorker();
-        this.initAnalytics();
-        
-        // Performance optimization
-        this.debounceResize();
-        this.rafOptimization();
-      } catch (error) {
-        console.error('Error initializing enhancements:', error);
-      }
-    }
-  
-    // 1. Smooth Scrolling with momentum effect (with fallback)
+    // 1. Safe Smooth Scrolling
     initSmoothScrolling() {
-      // Check if prefers-reduced-motion is enabled
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        this.initBasicSmoothScroll();
-        return;
-      }
-  
-      const scrollContainer = this.elements.html;
-      let scrollY = window.scrollY;
-      let targetY = scrollY;
-      let speed = 0;
-      let rafId;
-      let isScrolling = false;
-  
-      const ease = 0.075;
-      const lerp = (start, end, t) => start * (1 - t) + end * t;
-  
-      const smoothScroll = () => {
-        const diff = targetY - scrollY;
-        speed = lerp(speed, diff, ease);
-        scrollY += speed;
-  
-        if (Math.abs(speed) < 0.05) {
-          scrollY = targetY;
-          isScrolling = false;
-          cancelAnimationFrame(rafId);
-        } else {
-          scrollContainer.style.scrollBehavior = 'auto';
-          window.scrollTo(0, scrollY);
-          rafId = requestAnimationFrame(smoothScroll);
-        }
-      };
-  
-      window.addEventListener('scroll', () => {
-        targetY = window.scrollY;
-        if (!isScrolling) {
-          isScrolling = true;
-          rafId = requestAnimationFrame(smoothScroll);
-        }
-      }, { passive: true });
-  
-      // Smooth anchor links with fallback
+      // Only apply smooth scrolling to anchor links
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', (e) => {
           e.preventDefault();
-          const targetId = anchor.getAttribute('href');
-          const target = targetId === '#' ? this.elements.body : document.querySelector(targetId);
-          
+          const target = document.querySelector(anchor.getAttribute('href'));
           if (target) {
-            // Try smooth scroll first
-            targetY = target.offsetTop;
-            if (!isScrolling) {
-              isScrolling = true;
-              rafId = requestAnimationFrame(smoothScroll);
-            }
-            
-            // Fallback after timeout
-            setTimeout(() => {
-              if (Math.abs(window.scrollY - targetY) > 10) {
-                scrollContainer.style.scrollBehavior = 'smooth';
-                window.scrollTo(0, targetY);
-              }
-            }, 500);
+            window.scrollTo({
+              top: target.offsetTop - 100,
+              behavior: 'smooth'
+            });
           }
         });
       });
     }
   
-    initBasicSmoothScroll() {
-      // Basic smooth scroll for reduced motion preference
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-          e.preventDefault();
-          const targetId = anchor.getAttribute('href');
-          const target = targetId === '#' ? this.elements.body : document.querySelector(targetId);
-          
-          if (target) {
-            this.elements.html.style.scrollBehavior = 'smooth';
-            window.scrollTo(0, target.offsetTop);
-            
-            // Reset after scroll
-            setTimeout(() => {
-              this.elements.html.style.scrollBehavior = 'auto';
-            }, 1000);
-          }
-        });
-      });
-    }
-  
-    // 2. Mobile Menu with improved error handling
+    // 2. Mobile Menu with Visibility Check
     initMobileMenu() {
-      if (!this.elements.menuToggle || !this.elements.mainNav) return;
+      const menuToggle = document.querySelector('.mobile-menu-toggle');
+      if (!menuToggle) return;
   
+      const mainNav = document.querySelector('.main-nav');
       const navLinks = document.querySelectorAll('.main-nav a');
+      
       let isOpen = false;
       
-      this.elements.menuToggle.addEventListener('click', () => {
+      menuToggle.addEventListener('click', () => {
         isOpen = !isOpen;
+        mainNav.classList.toggle('active');
+        document.body.style.overflow = isOpen ? 'hidden' : '';
         
-        if (isOpen) {
-          this.elements.mainNav.classList.add('active');
-          this.elements.body.style.overflow = 'hidden';
-          
-          navLinks.forEach((link, index) => {
+        // Animate each link with stagger
+        navLinks.forEach((link, index) => {
+          if (isOpen) {
             link.style.opacity = '0';
             link.style.transform = 'translateY(20px)';
             link.style.transition = `all 0.3s ease ${index * 0.1}s`;
@@ -165,39 +71,30 @@ class DhemhiBrand {
               link.style.opacity = '1';
               link.style.transform = 'translateY(0)';
             }, 50);
-          });
-        } else {
-          navLinks.forEach(link => {
+          } else {
             link.style.opacity = '0';
             link.style.transform = 'translateY(20px)';
-          });
-          
-          setTimeout(() => {
-            this.elements.mainNav.classList.remove('active');
-            this.elements.body.style.overflow = '';
-          }, 300);
-        }
+          }
+        });
         
-        this.elements.menuToggle.innerHTML = isOpen ? 
+        menuToggle.innerHTML = isOpen ? 
           '<i class="fas fa-times"></i>' : 
           '<i class="fas fa-bars"></i>';
       });
     }
   
-    // 3. Scroll Animations with FOUC prevention
+    // 3. Safe Scroll Animations
     initScrollAnimations() {
       const animateOnScroll = (entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animated');
             
-            // Special animation for feature cards
-            if (entry.target.classList.contains('feature-card')) {
-              entry.target.style.transform = 'translateY(0) rotate(0deg)';
+            // Only animate if not already visible
+            if (entry.target.style.opacity === '0') {
               entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
             }
-            
-            observer.unobserve(entry.target);
           }
         });
       };
@@ -209,61 +106,28 @@ class DhemhiBrand {
   
       const observer = new IntersectionObserver(animateOnScroll, observerOptions);
   
-      const animatableElements = document.querySelectorAll('.section, .feature-card, .testimonial-card, .freebie-card');
-      
-      // First make sure elements are visible if JS fails
-      setTimeout(() => {
-        animatableElements.forEach(el => {
+      // Only observe elements that should animate
+      document.querySelectorAll('.feature-card, .testimonial-card, .freebie-card').forEach(el => {
+        // Set initial state only if not already visible
+        if (window.getComputedStyle(el).opacity !== '0') {
           el.style.opacity = '1';
-          el.style.transform = 'none';
-        });
-      }, 3000); // Fallback timeout
-  
-      // Then set up animations
-      animatableElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
-        observer.observe(el);
+        } else {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(30px)';
+          el.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+          observer.observe(el);
+        }
       });
     }
   
-    // 4. Parallax Effects with safe checks
-    initParallaxEffects() {
-      if (!this.elements.hero) return;
-  
-      const parallax = (e) => {
-        if (window.innerWidth > 768) {
-          const x = (window.innerWidth - e.pageX * 2) / 100;
-          const y = (window.innerHeight - e.pageY * 2) / 100;
-          this.elements.hero.style.transform = `translate(${x}px, ${y}px)`;
-        }
-      };
-  
-      if (window.DeviceOrientationEvent) {
-        window.addEventListener('deviceorientation', (e) => {
-          if (window.innerWidth > 768 && e.gamma && e.beta) {
-            const x = (e.gamma / 20);
-            const y = (e.beta / 20);
-            this.elements.hero.style.transform = `translate(${x}px, ${y}px)`;
-          }
-        }, true);
-      } else {
-        window.addEventListener('mousemove', parallax);
-      }
-    }
-  
-    // 5. Interactive Elements with safe checks
+    // 4. Interactive Elements (safe version)
     initInteractiveElements() {
       // Button ripple effect
       const buttons = document.querySelectorAll('.btn');
       buttons.forEach(button => {
         button.addEventListener('click', function(e) {
-          e.preventDefault();
-          
-          const rect = this.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
+          const x = e.clientX - e.target.getBoundingClientRect().left;
+          const y = e.clientY - e.target.getBoundingClientRect().top;
           
           const ripple = document.createElement('span');
           ripple.className = 'ripple';
@@ -278,37 +142,34 @@ class DhemhiBrand {
         });
       });
   
-      // Card tilt effect
-      const cards = document.querySelectorAll('.feature-card, .testimonial-card, .freebie-card');
-      cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-          if (window.innerWidth > 768) {
+      // Card hover effect (desktop only)
+      if (window.innerWidth > 768) {
+        const cards = document.querySelectorAll('.feature-card, .testimonial-card, .freebie-card');
+        cards.forEach(card => {
+          card.addEventListener('mousemove', (e) => {
             const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
             const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
             card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-          }
-        });
+          });
   
-        card.addEventListener('mouseenter', () => {
-          if (window.innerWidth > 768) {
+          card.addEventListener('mouseenter', () => {
             card.style.transition = 'none';
-          }
-        });
+          });
   
-        card.addEventListener('mouseleave', () => {
-          if (window.innerWidth > 768) {
+          card.addEventListener('mouseleave', () => {
             card.style.transition = 'all 0.5s ease';
             card.style.transform = 'rotateY(0deg) rotateX(0deg)';
-          }
+          });
         });
-      });
+      }
     }
   
-    // 6. Form Validation with improved UX
+    // 5. Form Validation
     initFormValidation() {
-      if (!this.elements.form) return;
+      const form = document.querySelector('.freebie-form');
+      if (!form) return;
   
-      const inputs = this.elements.form.querySelectorAll('input');
+      const inputs = form.querySelectorAll('input');
       inputs.forEach(input => {
         input.addEventListener('input', () => {
           if (input.value.trim() !== '') {
@@ -320,7 +181,7 @@ class DhemhiBrand {
         });
       });
   
-      this.elements.form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', (e) => {
         e.preventDefault();
         let isValid = true;
   
@@ -332,47 +193,18 @@ class DhemhiBrand {
         });
   
         if (isValid) {
-          // Show success state
-          this.elements.form.innerHTML = `
+          form.innerHTML = `
             <div class="form-success">
               <i class="fas fa-check-circle"></i>
               <h3>Success!</h3>
               <p>Your free resources are on their way to your email!</p>
             </div>
           `;
-          
-          // Track conversion if available
-          if (window.gtag) {
-            try {
-              gtag('event', 'conversion', {
-                'send_to': 'AW-123456789/AbC-D_EFG123456789',
-              });
-            } catch (error) {
-              console.error('Google Analytics error:', error);
-            }
-          }
         }
       });
     }
   
-    // 7. Page Transitions with safety checks
-    initPageTransitions() {
-      document.querySelectorAll('a:not([href^="#"]):not([target="_blank"])').forEach(link => {
-        // Skip if link doesn't point to our domain
-        if (!link.href.includes(window.location.hostname)) return;
-        
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          this.elements.body.classList.add('page-exit');
-          
-          setTimeout(() => {
-            window.location.href = link.href;
-          }, 500);
-        });
-      });
-    }
-  
-    // 8. Dynamic Custom Cursor (desktop only)
+    // 6. Dynamic Custom Cursor (desktop only)
     initDynamicCursor() {
       if (window.innerWidth < 992) return;
   
@@ -386,13 +218,10 @@ class DhemhiBrand {
   
       document.addEventListener('mousemove', (e) => {
         cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-        
-        setTimeout(() => {
-          cursorFollower.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-        }, 100);
+        cursorFollower.style.transform = `translate(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%))`;
       });
   
-      const interactiveElements = document.querySelectorAll('a, button, .btn, input, textarea, [data-cursor-effect]');
+      const interactiveElements = document.querySelectorAll('a, button, .btn, input, textarea');
       interactiveElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
           cursor.classList.add('cursor-active');
@@ -406,7 +235,7 @@ class DhemhiBrand {
       });
     }
   
-    // 9. Micro-interactions with safe checks
+    // 7. Micro-interactions
     initMicroInteractions() {
       // Scroll progress indicator
       const progressBar = document.createElement('div');
@@ -414,166 +243,34 @@ class DhemhiBrand {
       document.body.appendChild(progressBar);
       
       window.addEventListener('scroll', () => {
-        const scrollTop = this.elements.html.scrollTop;
-        const scrollHeight = this.elements.html.scrollHeight;
-        const clientHeight = this.elements.html.clientHeight;
+        const scrollTop = document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight;
+        const clientHeight = document.documentElement.clientHeight;
         const progress = (scrollTop / (scrollHeight - clientHeight)) * 100;
         progressBar.style.width = `${progress}%`;
       });
   
-      // Dynamic favicon change based on scroll
-      const favicon = document.querySelector('link[rel="icon"]');
-      if (favicon) {
-        window.addEventListener('scroll', () => {
-          const scrollPercentage = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-          if (scrollPercentage > 0.5) {
-            favicon.href = '/favicon-scrolled.png';
-          } else {
-            favicon.href = '/favicon.png';
-          }
-        });
-      }
-    }
-  
-    // 10. Lazy Loading with Intersection Observer
-    initLazyLoading() {
-      if (!('IntersectionObserver' in window)) {
-        // Fallback for browsers without IntersectionObserver
-        document.querySelectorAll('img[data-src]').forEach(img => {
-          img.src = img.dataset.src;
-        });
-        return;
-      }
-  
-      const lazyLoad = (entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src;
-            img.classList.add('loaded');
-            observer.unobserve(img);
-          }
-        });
-      };
-  
-      const lazyObserver = new IntersectionObserver(lazyLoad, {
-        rootMargin: '200px 0px',
-        threshold: 0.01
-      });
-  
-      document.querySelectorAll('img[data-src]').forEach(img => {
-        lazyObserver.observe(img);
-      });
-    }
-  
-    // 11. Service Worker with error handling
-    initServiceWorker() {
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js').then(registration => {
-            console.log('ServiceWorker registration successful');
-          }).catch(err => {
-            console.log('ServiceWorker registration failed: ', err);
-          });
-        });
-      }
-    }
-  
-    // 12. Analytics with privacy-friendly options
-    initAnalytics() {
-      if (this.getCookie('analytics_consent') === 'true' && window.gtag) {
-        try {
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'GA_MEASUREMENT_ID');
-          
-          gtag('event', 'page_view', {
-            page_title: document.title,
-            page_location: window.location.href,
-            page_path: window.location.pathname
-          });
-        } catch (error) {
-          console.error('Analytics initialization error:', error);
-        }
-      }
-    }
-  
-    // Helper: Get cookie value
-    getCookie(name) {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
-    }
-  
-    // Performance Optimization: Debounce resize events
-    debounceResize() {
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-          this.handleResize();
-        }, 250);
-      });
-    }
-  
-    handleResize() {
-      if (window.innerWidth >= 768 && this.elements.mainNav && this.elements.menuToggle) {
-        this.elements.mainNav.classList.remove('active');
-        this.elements.menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-        this.elements.body.style.overflow = '';
-      }
-    }
-  
-    // Performance Optimization: RAF for animations
-    rafOptimization() {
-      let lastScrollY = window.scrollY;
-      let ticking = false;
-      
+      // Header scroll effect
       window.addEventListener('scroll', () => {
-        lastScrollY = window.scrollY;
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            this.updateScrollDependentElements(lastScrollY);
-            ticking = false;
-          });
-          ticking = true;
-        }
-      });
-    }
-  
-    updateScrollDependentElements(scrollY) {
-      if (this.elements.header) {
-        if (scrollY > 100) {
-          this.elements.header.classList.add('scrolled');
+        const header = document.querySelector('header');
+        if (window.scrollY > 100) {
+          header.classList.add('scrolled');
         } else {
-          this.elements.header.classList.remove('scrolled');
+          header.classList.remove('scrolled');
         }
-      }
-      
-      const parallaxElements = document.querySelectorAll('[data-parallax]');
-      parallaxElements.forEach(el => {
-        const speed = parseFloat(el.dataset.parallax) || 0.5;
-        const offset = scrollY * speed;
-        el.style.transform = `translateY(${offset}px)`;
       });
     }
   }
   
-  // Initialize when DOM is loaded
+  // Initialize when DOM is fully loaded
   document.addEventListener('DOMContentLoaded', () => {
-    new DhemhiBrand();
-  });
-  
-  // Add some global event listeners for instant feedback
-  window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
+    // First make sure all content is visible immediately
+    document.querySelectorAll('.section, .feature-card, .testimonial-card, .freebie-card')
+      .forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
     
-    // Preload animations with fallback
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
-      setTimeout(() => {
-        heroContent.classList.add('animate');
-      }, 300);
-    }
+    // Then initialize the controller
+    new DhemhiBrand();
   });
