@@ -1,276 +1,623 @@
-// Enhanced Dhemhi Brand Controller with Content Visibility Fix
-class DhemhiBrand {
-    constructor() {
-      // First make sure all content is visible
-      this.ensureContentVisibility();
+/**
+ * The Dhemhi Brand | AJB - Main Controller
+ * A comprehensive JavaScript solution for premium website interactions
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize all modules
+  initLoadingScreen();
+  initCustomCursor();
+  initMobileMenu();
+  initSmoothScrolling();
+  initScrollProgress();
+  initBackToTop();
+  initScrollAnimations();
+  initTestimonialSlider();
+  initMagneticButtons();
+  initCounterAnimation();
+  initFormValidation();
+  initLazyLoading();
+  initPerformanceOptimizations();
+});
+
+// ==========================================================================
+// Loading Screen Controller
+// ==========================================================================
+function initLoadingScreen() {
+  const loadingScreen = document.querySelector('.loading-screen');
+  
+  // Simulate loading (replace with actual loading logic)
+  setTimeout(() => {
+    loadingScreen.classList.add('loaded');
+    
+    // Remove from DOM after animation completes
+    setTimeout(() => {
+      loadingScreen.remove();
+    }, 1000);
+  }, 2000);
+}
+
+// ==========================================================================
+// Custom Cursor Controller
+// ==========================================================================
+function initCustomCursor() {
+  const cursor = document.querySelector('.custom-cursor');
+  const cursorFollower = document.querySelector('.cursor-follower');
+  
+  if (!cursor || !cursorFollower) return;
+
+  document.addEventListener('mousemove', (e) => {
+    const { clientX: x, clientY: y } = e;
+    
+    // Main cursor (fast)
+    cursor.style.transform = `translate(${x}px, ${y}px)`;
+    
+    // Follower cursor (smooth)
+    gsap.to(cursorFollower, {
+      x: x,
+      y: y,
+      duration: 0.6,
+      ease: 'power2.out'
+    });
+  });
+
+  // Cursor hover effects
+  const hoverElements = [
+    ...document.querySelectorAll('a, button, .btn, [data-cursor-hover]')
+  ];
+
+  hoverElements.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.classList.add('cursor-active');
+      cursorFollower.classList.add('cursor-follower-active');
+    });
+    
+    el.addEventListener('mouseleave', () => {
+      cursor.classList.remove('cursor-active');
+      cursorFollower.classList.remove('cursor-follower-active');
+    });
+  });
+}
+
+// ==========================================================================
+// Mobile Menu Controller
+// ==========================================================================
+function initMobileMenu() {
+  const menuToggle = document.querySelector('.mobile-menu-toggle');
+  const mainNav = document.querySelector('.main-nav');
+  
+  if (!menuToggle || !mainNav) return;
+
+  menuToggle.addEventListener('click', () => {
+    menuToggle.classList.toggle('active');
+    mainNav.classList.toggle('active');
+    document.body.classList.toggle('menu-open');
+  });
+
+  // Close menu when clicking on nav links
+  const navLinks = document.querySelectorAll('.main-nav a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      menuToggle.classList.remove('active');
+      mainNav.classList.remove('active');
+      document.body.classList.remove('menu-open');
+    });
+  });
+}
+
+// ==========================================================================
+// Smooth Scrolling Controller
+// ==========================================================================
+function initSmoothScrolling() {
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
       
-      // Then initialize all functionality
-      this.initSmoothScrolling();
-      this.initMobileMenu();
-      this.initScrollAnimations();
-      this.initInteractiveElements();
-      this.initFormValidation();
-      this.initDynamicCursor();
-      this.initMicroInteractions();
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
       
-      console.log("%c Dhemhi Brand %c Ready for Success ", 
-        "background: #A0009E; color: white; font-size: 16px; font-weight: bold; padding: 5px 10px;", 
-        "background: #FF9F1C; color: #1A132F; font-size: 16px; font-weight: bold; padding: 5px 10px;");
-    }
-  
-    // 0. First ensure all content is visible
-    ensureContentVisibility() {
-      // Remove any hiding styles that might have been set
-      document.querySelectorAll('body, .section, .feature-card, .testimonial-card, .freebie-card')
-        .forEach(el => {
-          el.style.opacity = '';
-          el.style.transform = '';
-          el.style.transition = '';
-        });
-    }
-  
-    // 1. Safe Smooth Scrolling
-    initSmoothScrolling() {
-      // Only apply smooth scrolling to anchor links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-          e.preventDefault();
-          const target = document.querySelector(anchor.getAttribute('href'));
-          if (target) {
-            window.scrollTo({
-              top: target.offsetTop - 100,
-              behavior: 'smooth'
-            });
-          }
-        });
-      });
-    }
-  
-    // 2. Mobile Menu with Visibility Check
-    initMobileMenu() {
-      const menuToggle = document.querySelector('.mobile-menu-toggle');
-      if (!menuToggle) return;
-  
-      const mainNav = document.querySelector('.main-nav');
-      const navLinks = document.querySelectorAll('.main-nav a');
-      
-      let isOpen = false;
-      
-      menuToggle.addEventListener('click', () => {
-        isOpen = !isOpen;
-        mainNav.classList.toggle('active');
-        document.body.style.overflow = isOpen ? 'hidden' : '';
-        
-        // Animate each link with stagger
-        navLinks.forEach((link, index) => {
-          if (isOpen) {
-            link.style.opacity = '0';
-            link.style.transform = 'translateY(20px)';
-            link.style.transition = `all 0.3s ease ${index * 0.1}s`;
-            setTimeout(() => {
-              link.style.opacity = '1';
-              link.style.transform = 'translateY(0)';
-            }, 50);
-          } else {
-            link.style.opacity = '0';
-            link.style.transform = 'translateY(20px)';
-          }
-        });
-        
-        menuToggle.innerHTML = isOpen ? 
-          '<i class="fas fa-times"></i>' : 
-          '<i class="fas fa-bars"></i>';
-      });
-    }
-  
-    // 3. Safe Scroll Animations
-    initScrollAnimations() {
-      const animateOnScroll = (entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animated');
-            
-            // Only animate if not already visible
-            if (entry.target.style.opacity === '0') {
-              entry.target.style.opacity = '1';
-              entry.target.style.transform = 'translateY(0)';
-            }
-          }
-        });
-      };
-  
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-      };
-  
-      const observer = new IntersectionObserver(animateOnScroll, observerOptions);
-  
-      // Only observe elements that should animate
-      document.querySelectorAll('.feature-card, .testimonial-card, .freebie-card').forEach(el => {
-        // Set initial state only if not already visible
-        if (window.getComputedStyle(el).opacity !== '0') {
-          el.style.opacity = '1';
-        } else {
-          el.style.opacity = '0';
-          el.style.transform = 'translateY(30px)';
-          el.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
-          observer.observe(el);
-        }
-      });
-    }
-  
-    // 4. Interactive Elements (safe version)
-    initInteractiveElements() {
-      // Button ripple effect
-      const buttons = document.querySelectorAll('.btn');
-      buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
-          const x = e.clientX - e.target.getBoundingClientRect().left;
-          const y = e.clientY - e.target.getBoundingClientRect().top;
-          
-          const ripple = document.createElement('span');
-          ripple.className = 'ripple';
-          ripple.style.left = `${x}px`;
-          ripple.style.top = `${y}px`;
-          
-          this.appendChild(ripple);
-          
-          setTimeout(() => {
-            ripple.remove();
-          }, 1000);
-        });
-      });
-  
-      // Card hover effect (desktop only)
-      if (window.innerWidth > 768) {
-        const cards = document.querySelectorAll('.feature-card, .testimonial-card, .freebie-card');
-        cards.forEach(card => {
-          card.addEventListener('mousemove', (e) => {
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-          });
-  
-          card.addEventListener('mouseenter', () => {
-            card.style.transition = 'none';
-          });
-  
-          card.addEventListener('mouseleave', () => {
-            card.style.transition = 'all 0.5s ease';
-            card.style.transform = 'rotateY(0deg) rotateX(0deg)';
-          });
+      if (targetElement) {
+        gsap.to(window, {
+          scrollTo: {
+            y: targetElement,
+            offsetY: 100
+          },
+          duration: 1.2,
+          ease: 'power2.inOut'
         });
       }
+    });
+  });
+
+  // Header scroll effect
+  const header = document.querySelector('.header');
+  let lastScroll = 0;
+  
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll <= 0) {
+      header.classList.remove('scrolled', 'scroll-up');
+      return;
     }
+    
+    if (currentScroll > lastScroll && !header.classList.contains('scroll-down')) {
+      header.classList.remove('scroll-up');
+      header.classList.add('scroll-down');
+    } else if (currentScroll < lastScroll && header.classList.contains('scroll-down')) {
+      header.classList.remove('scroll-down');
+      header.classList.add('scroll-up');
+    }
+    
+    lastScroll = currentScroll;
+    
+    // Add/remove scrolled class based on position
+    if (window.scrollY > 100) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+}
+
+// ==========================================================================
+// Scroll Progress Controller
+// ==========================================================================
+function initScrollProgress() {
+  const progressBar = document.querySelector('.scroll-progress');
   
-    // 5. Form Validation
-    initFormValidation() {
-      const form = document.querySelector('.freebie-form');
-      if (!form) return;
+  if (!progressBar) return;
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const progress = (scrollTop / scrollHeight) * 100;
+    
+    progressBar.style.width = `${progress}%`;
+  });
+}
+
+// ==========================================================================
+// Back to Top Controller
+// ==========================================================================
+function initBackToTop() {
+  const backToTop = document.querySelector('.back-to-top');
   
-      const inputs = form.querySelectorAll('input');
-      inputs.forEach(input => {
-        input.addEventListener('input', () => {
-          if (input.value.trim() !== '') {
-            input.classList.add('filled');
-            input.classList.remove('error');
-          } else {
-            input.classList.remove('filled');
-          }
-        });
+  if (!backToTop) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+      backToTop.classList.add('active');
+    } else {
+      backToTop.classList.remove('active');
+    }
+  });
+
+  backToTop.addEventListener('click', (e) => {
+    e.preventDefault();
+    gsap.to(window, {
+      scrollTo: 0,
+      duration: 1,
+      ease: 'power2.inOut'
+    });
+  });
+}
+
+// ==========================================================================
+// Scroll Animations Controller
+// ==========================================================================
+function initScrollAnimations() {
+  // Initialize AOS (Animate On Scroll)
+  AOS.init({
+    duration: 800,
+    easing: 'ease-in-out',
+    once: true,
+    mirror: false,
+    offset: 100
+  });
+
+  // Custom scroll animations with GSAP ScrollTrigger
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero section animation
+  gsap.from('.hero-title span', {
+    y: 50,
+    opacity: 0,
+    stagger: 0.1,
+    duration: 1,
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: '.hero',
+      start: 'top center'
+    }
+  });
+
+  // First, remove the AOS attributes from your HTML for these elements
+// Then use this optimized GSAP animation code:
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize GSAP animations for feature cards
+  const featureCards = gsap.utils.toArray('.feature-card');
+  
+  // Only animate if elements exist
+  if (featureCards.length) {
+    featureCards.forEach((card, i) => {
+      // Set initial state (hidden)
+      gsap.set(card, { 
+        y: 50, 
+        opacity: 0,
+        transformStyle: "preserve-3d"
       });
-  
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        let isValid = true;
-  
-        inputs.forEach(input => {
-          if (input.hasAttribute('required') && input.value.trim() === '') {
-            input.classList.add('error');
-            isValid = false;
-          }
-        });
-  
-        if (isValid) {
-          form.innerHTML = `
-            <div class="form-success">
-              <i class="fas fa-check-circle"></i>
-              <h3>Success!</h3>
-              <p>Your free resources are on their way to your email!</p>
-            </div>
-          `;
+
+      // Create animation
+      const cardAnimation = gsap.to(card, {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        delay: i * 0.15,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 80%",
+          toggleActions: "play none none none",
+          markers: false // Set to true for debugging if needed
         }
       });
-    }
-  
-    // 6. Dynamic Custom Cursor (desktop only)
-    initDynamicCursor() {
-      if (window.innerWidth < 992) return;
-  
-      const cursor = document.createElement('div');
-      cursor.className = 'custom-cursor';
-      document.body.appendChild(cursor);
-  
-      const cursorFollower = document.createElement('div');
-      cursorFollower.className = 'cursor-follower';
-      document.body.appendChild(cursorFollower);
-  
-      document.addEventListener('mousemove', (e) => {
-        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-        cursorFollower.style.transform = `translate(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%))`;
-      });
-  
-      const interactiveElements = document.querySelectorAll('a, button, .btn, input, textarea');
-      interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-          cursor.classList.add('cursor-active');
-          cursorFollower.classList.add('cursor-follower-active');
-        });
-        
-        el.addEventListener('mouseleave', () => {
-          cursor.classList.remove('cursor-active');
-          cursorFollower.classList.remove('cursor-follower-active');
+
+      // Add hover effects
+      card.addEventListener('mouseenter', () => {
+        gsap.to(card, {
+          y: -15,
+          scale: 1.03,
+          duration: 0.5,
+          ease: "power2.out"
         });
       });
-    }
-  
-    // 7. Micro-interactions
-    initMicroInteractions() {
-      // Scroll progress indicator
-      const progressBar = document.createElement('div');
-      progressBar.className = 'scroll-progress';
-      document.body.appendChild(progressBar);
-      
-      window.addEventListener('scroll', () => {
-        const scrollTop = document.documentElement.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight;
-        const clientHeight = document.documentElement.clientHeight;
-        const progress = (scrollTop / (scrollHeight - clientHeight)) * 100;
-        progressBar.style.width = `${progress}%`;
+
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          y: 0,
+          scale: 1,
+          duration: 0.5,
+          ease: "power2.out"
+        });
       });
+    });
+  }
+
+  // Process steps animation (optimized version)
+  const processItems = gsap.utils.toArray('.process-item');
   
-      // Header scroll effect
-      window.addEventListener('scroll', () => {
-        const header = document.querySelector('header');
-        if (window.scrollY > 100) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
-        }
-      });
+  if (processItems.length) {
+    gsap.from(processItems, {
+      x: -50,
+      opacity: 0,
+      stagger: 0.2,
+      duration: 0.8,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: '.process-steps',
+        start: "top 70%",
+        toggleActions: "play none none none"
+      }
+    });
+  }
+});
+}
+
+// ==========================================================================
+// Testimonial Slider Controller
+// ==========================================================================
+function initTestimonialSlider() {
+  const slider = document.querySelector('.testimonials-slider');
+  if (!slider) return;
+
+  const track = slider.querySelector('.testimonial-track');
+  const cards = slider.querySelectorAll('.testimonial-card');
+  const prevBtn = slider.querySelector('.slider-prev');
+  const nextBtn = slider.querySelector('.slider-next');
+  
+  let currentIndex = 0;
+  const cardWidth = cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginRight);
+  
+  // Set initial position
+  updateSliderPosition();
+  
+  // Next button
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < cards.length - 1) {
+      currentIndex++;
+      updateSliderPosition();
     }
+  });
+  
+  // Previous button
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateSliderPosition();
+    }
+  });
+  
+  function updateSliderPosition() {
+    const offset = -currentIndex * cardWidth;
+    gsap.to(track, {
+      x: offset,
+      duration: 0.6,
+      ease: 'power2.out'
+    });
+    
+    // Update button states
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex >= cards.length - 1;
   }
   
-  // Initialize when DOM is fully loaded
-  document.addEventListener('DOMContentLoaded', () => {
-    // First make sure all content is visible immediately
-    document.querySelectorAll('.section, .feature-card, .testimonial-card, .freebie-card')
-      .forEach(el => {
-        el.style.opacity = '1';
-        el.style.transform = 'none';
-      });
+  // Touch/swipe support
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  track.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+  
+  track.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, { passive: true });
+  
+  function handleSwipe() {
+    const difference = touchStartX - touchEndX;
     
-    // Then initialize the controller
-    new DhemhiBrand();
+    if (difference > 50 && currentIndex < cards.length - 1) {
+      // Swipe left
+      currentIndex++;
+      updateSliderPosition();
+    } else if (difference < -50 && currentIndex > 0) {
+      // Swipe right
+      currentIndex--;
+      updateSliderPosition();
+    }
+  }
+}
+
+// ==========================================================================
+// Magnetic Buttons Controller
+// ==========================================================================
+function initMagneticButtons() {
+  const magneticButtons = document.querySelectorAll('.btn-magnetic');
+  
+  magneticButtons.forEach(button => {
+    button.addEventListener('mousemove', (e) => {
+      const { left, top, width, height } = button.getBoundingClientRect();
+      const x = e.clientX - left - width / 2;
+      const y = e.clientY - top - height / 2;
+      
+      gsap.to(button, {
+        x: x * 0.2,
+        y: y * 0.2,
+        duration: 0.8,
+        ease: 'power2.out'
+      });
+    });
+    
+    button.addEventListener('mouseleave', () => {
+      gsap.to(button, {
+        x: 0,
+        y: 0,
+        duration: 0.8,
+        ease: 'elastic.out(1, 0.5)'
+      });
+    });
   });
+}
+
+// ==========================================================================
+// Counter Animation Controller
+// ==========================================================================
+function initCounterAnimation() {
+  const counters = document.querySelectorAll('[data-count]');
+  
+  counters.forEach(counter => {
+    const target = +counter.getAttribute('data-count');
+    const duration = 2000; // Animation duration in ms
+    const start = 0;
+    const increment = target / (duration / 16); // 60fps
+    
+    let current = start;
+    const element = counter;
+    
+    const animate = () => {
+      current += increment;
+      
+      if (current < target) {
+        element.textContent = Math.floor(current).toLocaleString();
+        requestAnimationFrame(animate);
+      } else {
+        element.textContent = target.toLocaleString();
+      }
+    };
+    
+    // Start animation when counter is in view
+    ScrollTrigger.create({
+      trigger: counter,
+      start: 'top 80%',
+      onEnter: animate,
+      once: true
+    });
+  });
+}
+
+// ==========================================================================
+// Form Validation Controller
+// ==========================================================================
+function initFormValidation() {
+  const forms = document.querySelectorAll('form');
+  
+  forms.forEach(form => {
+    form.addEventListener('submit', (e) => {
+      let isValid = true;
+      const inputs = form.querySelectorAll('input[required], textarea[required]');
+      
+      inputs.forEach(input => {
+        if (!input.value.trim()) {
+          input.classList.add('error');
+          isValid = false;
+        } else {
+          input.classList.remove('error');
+        }
+      });
+      
+      if (!isValid) {
+        e.preventDefault();
+        
+        // Add error message animation
+        gsap.from('.error', {
+          x: 10,
+          duration: 0.2,
+          ease: 'power1.inOut',
+          stagger: 0.1,
+          repeat: 1,
+          yoyo: true
+        });
+      }
+    });
+    
+    // Real-time validation
+    const inputs = form.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+      input.addEventListener('input', () => {
+        if (input.value.trim()) {
+          input.classList.remove('error');
+        }
+      });
+    });
+  });
+}
+
+// ==========================================================================
+// Lazy Loading Controller
+// ==========================================================================
+function initLazyLoading() {
+  const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+  
+  if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const image = entry.target;
+          image.src = image.dataset.src || image.src;
+          imageObserver.unobserve(image);
+          
+          // Fade in effect
+          gsap.from(image, {
+            opacity: 0,
+            duration: 0.8,
+            ease: 'power2.out'
+          });
+        }
+      });
+    }, {
+      rootMargin: '200px 0px'
+    });
+    
+    lazyImages.forEach(image => {
+      imageObserver.observe(image);
+    });
+  } else {
+    // Fallback for browsers without IntersectionObserver
+    lazyImages.forEach(image => {
+      image.src = image.dataset.src || image.src;
+    });
+  }
+}
+
+// ==========================================================================
+// Performance Optimizations
+// ==========================================================================
+function initPerformanceOptimizations() {
+  // Debounce scroll events
+  const debounce = (func, wait = 20, immediate = true) => {
+    let timeout;
+    return function() {
+      const context = this, args = arguments;
+      const later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      const callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  };
+  
+  // Throttle resize events
+  const throttle = (func, limit = 100) => {
+    let lastFunc;
+    let lastRan;
+    return function() {
+      const context = this;
+      const args = arguments;
+      if (!lastRan) {
+        func.apply(context, args);
+        lastRan = Date.now();
+      } else {
+        clearTimeout(lastFunc);
+        lastFunc = setTimeout(function() {
+          if ((Date.now() - lastRan) >= limit) {
+            func.apply(context, args);
+            lastRan = Date.now();
+          }
+        }, limit - (Date.now() - lastRan));
+      }
+    };
+  };
+  
+  // Optimized scroll and resize handlers
+  window.addEventListener('scroll', debounce(() => {
+    // Any scroll-dependent functions
+  }));
+  
+  window.addEventListener('resize', throttle(() => {
+    // Any resize-dependent functions
+  }));
+  
+  // Preload critical resources
+  const preloadResources = () => {
+    const resources = [
+      // Add paths to critical images, fonts, etc.
+    ];
+    
+    resources.forEach(resource => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = resource.type || 'image';
+      link.href = resource.url;
+      document.head.appendChild(link);
+    });
+  };
+  
+  // Load non-critical CSS after page load
+  const loadNonCriticalCSS = () => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'path/to/non-critical.css';
+    document.head.appendChild(link);
+  };
+  
+  window.addEventListener('load', () => {
+    loadNonCriticalCSS();
+  });
+  
+  // Initialize service worker if available
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').then(registration => {
+        console.log('ServiceWorker registration successful');
+      }).catch(err => {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  }
+}

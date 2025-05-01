@@ -1,256 +1,606 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Primary Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The Dhemhi Brand & AJB - Premium business fashion and CAC registration services. Build your business and wear your power with our exclusive collections and expert guidance.">
+    <meta name="keywords" content="premium business fashion, CAC registration Nigeria, corporate wear, business registration, luxury clothing, entrepreneur fashion, AJB brand, Dhemhi clothing">
+    <meta name="author" content="The Dhemhi Brand | AJB">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ayomide-juliana-brand.netlify.app/">
+    <meta property="og:title" content="The Dhemhi Brand | AJB - Build Your Business. Wear Your Power.">
+    <meta property="og:description" content="Premium business fashion and CAC registration services for ambitious entrepreneurs. Two brands, one mission.">
+    <meta property="og:image" content="https://ayomide-juliana-brand.netlify.app/assets/social-preview.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ayomide-juliana-brand.netlify.app/">
+    <meta property="twitter:title" content="The Dhemhi Brand | AJB - Build Your Business. Wear Your Power.">
+    <meta property="twitter:description" content="Premium business fashion and CAC registration services for ambitious entrepreneurs. Two brands, one mission.">
+    <meta property="twitter:image" content="https://ayomide-juliana-brand.netlify.app/assets/social-preview.jpg">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#a0009e">
+    <meta name="msapplication-TileColor" content="#a0009e">
+    <meta name="theme-color" content="#ffffff">
+    
     <title>The Dhemhi Brand | AJB - Build Your Business. Wear Your Power.</title>
+    
+    <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://ayomide-juliana-brand.netlify.app/">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "The Dhemhi Brand | AJB",
+      "url": "https://ayomide-juliana-brand.netlify.app",
+      "logo": "https://ayomide-juliana-brand.netlify.app/assets/logo.png",
+      "description": "Premium business fashion and CAC registration services for ambitious entrepreneurs",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Osogbo",
+        "addressRegion": "NG",
+        "postalCode": "100001",
+        "addressCountry": "Nigeria"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+2348123456789",
+        "contactType": "customer service",
+        "email": "info@dhemhibrand.com",
+        "areaServed": "NG"
+      },
+      "sameAs": [
+        "https://www.instagram.com/dhemhibrand",
+        "https://www.facebook.com/dhemhibrand",
+        "https://wa.me/2348123456789"
+      ]
+    }
+    </script>
 </head>
 <body>
+    <!-- Custom Cursor Elements -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-follower"></div>
+    
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress"></div>
+    
+    <!-- Loading Animation -->
+    <div class="loading-screen">
+        <div class="loading-animation">
+            <div class="loading-logo">
+                <span>AJB</span>
+                <div class="loading-bar"></div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Header Section -->
-    <header>
+    <header class="header">
         <div class="header-container">
-            <a href="#" class="logo">The Dhemhi Brand</a>
-            <nav class="main-nav">
+            <a href="#" class="logo" aria-label="The Dhemhi Brand Logo">The Ayomide Juliana</a>
+            
+            <nav class="main-nav" role="navigation">
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Shop DEMI</a></li>
-                    <li><a href="#">Register with AJB</a></li>
-                    <li><a href="#">Freebies</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#shop" class="nav-link">Shop DHEMHI</a></li>
+                    <li><a href="#register" class="nav-link">Register with AJB</a></li>
+                    <li><a href="#freebies" class="nav-link">Freebies</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
-            <div class="mobile-menu-toggle">
-                <i class="fas fa-bars"></i>
+            
+            <div class="header-cta">
+                <a href="#shop" class="btn btn-outline btn-small">Shop Now</a>
+            </div>
+            
+            <div class="mobile-menu-toggle" aria-label="Mobile menu toggle">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Build Your Business. Wear Your Power.</h1>
-            <p class="hero-subtext">Two brands. One mission — To help you look like a boss and become one.</p>
-            <div class="hero-cta">
-                <a href="#" class="btn btn-primary">Shop Fashion</a>
-                <a href="#" class="btn btn-secondary">Register My Business</a>
+    <section id="home" class="hero" data-scroll-section>
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-container">
+            <div class="hero-content" data-aos="fade-up" data-aos-delay="300">
+                <h1 class="hero-title">
+                    <span class="title-line">Build Your Business.</span>
+                    <span class="title-line">Wear Your Power.</span>
+                </h1>
+                <p class="hero-subtext">Two brands. One mission — To help you look like a boss and become one.</p>
+                <div class="hero-cta">
+                    <a href="#shop" class="btn btn-primary btn-large btn-magnetic">Shop Fashion</a>
+                    <a href="#register" class="btn btn-secondary btn-large btn-magnetic">Register My Business</a>
+                </div>
+            </div>
+            
+            <div class="hero-scroll-indicator">
+                <span>Scroll</span>
+                <div class="scroll-line"></div>
             </div>
         </div>
     </section>
 
     <!-- DEMI Fashion Section -->
-    <section class="section demi-section">
+    <section id="shop" class="section demi-section" data-scroll-section>
         <div class="section-container">
-            <h2 class="section-title">Dress for the Life You Want.</h2>
-            <p class="section-subtitle">From clean-cut corporate pants to comfy yet confident boxers, DEMI is redefining power dressing for everyday people. Unisex, bold, and made for the ambitious.</p>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">Premium Fashion</span>
+                <h2 class="section-title">Dress for the Life You Want.</h2>
+                <p class="section-subtitle">From clean-cut corporate pants to comfy yet confident boxers, DEMI is redefining power dressing for everyday people. Unisex, bold, and made for the ambitious.</p>
+            </div>
             
             <div class="features-grid">
-                <div class="feature-card">
-                    <i class="fas fa-tshirt feature-icon"></i>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200" alt="Pants That Fit Right" loading="lazy">
+                    </div>
                     <h3>Pants That Fit Right, Feel Right</h3>
+                    <p>Tailored perfection for every body type</p>
+                    <a href="#" class="feature-link">Explore Collection →</a>
                 </div>
-                <div class="feature-card">
-                    <i class="fas fa-male feature-icon"></i>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200" alt="Stylish Men's Underwear" loading="lazy">
+                    </div>
                     <h3>Stylish Men's Underwear</h3>
-                    <p>Boxers, Briefs</p>
+                    <p>Boxers, Briefs & Lounge Wear</p>
+                    <a href="#" class="feature-link">Shop Now →</a>
                 </div>
-                <div class="feature-card">
-                    <i class="fas fa-suitcase feature-icon"></i>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200" alt="Full Corporate Looks" loading="lazy">
+                    </div>
                     <h3>Full Corporate Looks</h3>
                     <p>Shirts, Trousers, Accessories</p>
+                    <a href="#" class="feature-link">View Outfits →</a>
                 </div>
             </div>
 
-            <div class="cta-container">
-                <a href="#" class="btn btn-primary">Shop Our Bestsellers</a>
-                <a href="#" class="btn btn-outline">See Customer Reviews</a>
-            </div>
-
-            <div class="badges-container">
-                <div class="badge">
-                    <i class="fas fa-truck"></i>
-                    <span>500+ Orders Delivered</span>
+            <div class="stats-container" data-aos="fade-up">
+                <div class="stat-item">
+                    <div class="stat-number" data-count="500">0</div>
+                    <div class="stat-label">Orders Delivered</div>
                 </div>
-                <div class="badge">
-                    <i class="fas fa-arrows-alt-v"></i>
-                    <span>Sizes for Men & Women</span>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="98">0</div>
+                    <div class="stat-label">Satisfaction Rate</div>
                 </div>
-                <div class="badge">
-                    <i class="fas fa-user-tie"></i>
-                    <span>Trusted by Student CEOs</span>
+                <div class="stat-item">
+                    <div class="stat-number" data-count="300">0</div>
+                    <div class="stat-label">Student CEOs</div>
                 </div>
             </div>
 
-            <div class="section-text">
+            <div class="section-text" data-aos="fade-up">
                 <p>At DEMI, we don't just sell clothes — we sell confidence. Whether you're heading to class, pitching a brand, or entering your 9–5, you deserve to show up looking like you already made it.</p>
+            </div>
+
+            <div class="cta-container" data-aos="fade-up">
+                <a href="#" class="btn btn-primary btn-magnetic">Shop Our Bestsellers</a>
+                <a href="#" class="btn btn-outline btn-magnetic">See Customer Reviews</a>
             </div>
         </div>
     </section>
 
     <!-- AJB Business Section -->
-    <section class="section ajb-section">
+    <section id="register" class="section ajb-section" data-scroll-section>
         <div class="section-container">
-            <h2 class="section-title">Launch Your Business the Right Way.</h2>
-            <p class="section-subtitle">We help you go from idea to fully registered business with ease, clarity, and confidence.</p>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">Business Services</span>
+                <h2 class="section-title">Launch Your Business the Right Way.</h2>
+                <p class="section-subtitle">We help you go from idea to fully registered business with ease, clarity, and confidence.</p>
+            </div>
             
-            <div class="features-grid">
-                <div class="feature-card">
-                    <i class="fas fa-file-signature feature-icon"></i>
-                    <h3>CAC Registration</h3>
-                    <p>Business Name & Company</p>
+            <div class="process-steps">
+                <div class="process-line" data-aos="fade-right"></div>
+                
+                <div class="process-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="process-number">01</div>
+                    <div class="process-content">
+                        <h3>CAC Registration</h3>
+                        <p>Business Name & Company registration with Corporate Affairs Commission</p>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <i class="fas fa-lightbulb feature-icon"></i>
-                    <h3>Business Name Creation</h3>
-                    <p>Brand Identity Help</p>
+                
+                <div class="process-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="process-number">02</div>
+                    <div class="process-content">
+                        <h3>Business Name Creation</h3>
+                        <p>Expert guidance in creating a memorable and effective business name</p>
+                    </div>
                 </div>
-                <div class="feature-card">
-                    <i class="fas fa-chalkboard-teacher feature-icon"></i>
-                    <h3>The Brand Launcher</h3>
-                    <p>Mentorship Program (Premium)</p>
+                
+                <div class="process-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="process-number">03</div>
+                    <div class="process-content">
+                        <h3>The Brand Launcher</h3>
+                        <p>Premium mentorship program to accelerate your business growth</p>
+                    </div>
                 </div>
             </div>
 
-            <div class="why-ajb">
-                <h3>Why AJB?</h3>
-                <ul class="benefits-list">
-                    <li><i class="fas fa-check-circle"></i> Over 300+ businesses launched</li>
-                    <li><i class="fas fa-check-circle"></i> Fast, simplified process</li>
-                    <li><i class="fas fa-check-circle"></i> 1:1 WhatsApp support</li>
-                    <li><i class="fas fa-check-circle"></i> Extra tips to help you grow post-registration</li>
-                </ul>
+            <div class="benefits-container" data-aos="fade-up">
+                <div class="benefits-image">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600" alt="Business Registration Benefits" loading="lazy">
+                </div>
+                <div class="benefits-content">
+                    <h3>Why Choose AJB?</h3>
+                    <ul class="benefits-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Over <strong>300+</strong> businesses successfully launched</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Fast, simplified registration process</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Dedicated 1:1 WhatsApp support</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Exclusive growth resources post-registration</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="section-text">
+            <div class="section-text" data-aos="fade-up">
                 <p>You've got the vision. Let us handle the registration. Whether you're a student, side hustler, or full-time dreamer, we'll walk you through launching your brand the smart way.</p>
             </div>
 
-            <div class="cta-container">
-                <a href="#" class="btn btn-primary">Get Started with CAC</a>
-                <a href="#" class="btn btn-secondary">Book a Free Consult</a>
+            <div class="cta-container" data-aos="fade-up">
+                <a href="#" class="btn btn-primary btn-magnetic">Get Started with CAC</a>
+                <a href="#" class="btn btn-secondary btn-magnetic">Book a Free Consult</a>
             </div>
         </div>
     </section>
 
     <!-- Free Resources Section -->
-    <section class="section freebies-section">
+    <section id="freebies" class="section freebies-section" data-scroll-section>
         <div class="section-container">
-            <h2 class="section-title">Free Tools to Kickstart Your Boss Era</h2>
-            <p class="section-subtitle">Download our two signature freebies to get ahead — no stress, just value.</p>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">Free Resources</span>
+                <h2 class="section-title">Tools to Kickstart Your Boss Era</h2>
+                <p class="section-subtitle">Download our signature freebies to get ahead — no stress, just value.</p>
+            </div>
             
             <div class="freebies-grid">
-                <div class="freebie-card">
-                    <i class="fas fa-book-open"></i>
+                <div class="freebie-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="freebie-icon">
+                        <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200" alt="DEMI Lookbook" loading="lazy">
+                    </div>
                     <h3>DEMI Lookbook</h3>
                     <p>"Boss Babe/Bro Styling Kit – 3 Killer Looks + Confidence Tips"</p>
+                    <div class="freebie-badge">Free Download</div>
                 </div>
-                <div class="freebie-card">
-                    <i class="fas fa-clipboard-list"></i>
+                
+                <div class="freebie-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="freebie-icon">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200" alt="AJB Guide" loading="lazy">
+                    </div>
                     <h3>AJB Guide</h3>
                     <p>"Start Smart: CAC Registration Checklist + 3 Business Name Secrets"</p>
+                    <div class="freebie-badge">Free Download</div>
                 </div>
             </div>
 
-            <form class="freebie-form">
-                <div class="form-group">
-                    <input type="text" placeholder="Name" required>
+            <form class="freebie-form" data-aos="fade-up">
+                <div class="form-header">
+                    <h3>Get Instant Access</h3>
+                    <p>Enter your details to download both free resources</p>
                 </div>
-                <div class="form-group">
-                    <input type="email" placeholder="Email" required>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" required>
+                        <label for="name">Full Name</label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" required>
+                        <label for="email">Email Address</label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" id="instagram" name="instagram">
+                        <label for="instagram">Instagram Handle (Optional)</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block btn-magnetic">
+                        <span>Get My Freebies</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
                 </div>
-                <div class="form-group">
-                    <input type="text" placeholder="Instagram Handle">
+                
+                <div class="form-footer">
+                    <p>We respect your privacy. Unsubscribe at any time.</p>
                 </div>
-                <button type="submit" class="btn btn-primary">Get My Freebies</button>
             </form>
         </div>
     </section>
 
     <!-- Testimonials Section -->
-    <section class="section testimonials-section">
+    <section class="section testimonials-section" data-scroll-section>
         <div class="section-container">
-            <h2 class="section-title">They Took the First Step. Now Look at Them...</h2>
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">Success Stories</span>
+                <h2 class="section-title">They Took the First Step. Now Look at Them...</h2>
+            </div>
             
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
-                    <p class="testimonial-text">"AJB helped me name, register, and launch my business in 7 days. I've never felt more official!"</p>
-                    <p class="testimonial-author">— Ruth A.</p>
+            <div class="testimonials-slider">
+                <div class="testimonial-track">
+                    <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"AJB helped me name, register, and launch my business in 7 days. I've never felt more official!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100" alt="Ruth A." loading="lazy">
+                            </div>
+                            <div class="author-info">
+                                <h4>Ruth A.</h4>
+                                <span>Founder, Ruth's Kitchen</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"DHEMHI's boxers are literally the most comfortable thing I've worn this year. I ordered 3 more pairs immediately."</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100" alt="Daniel K." loading="lazy">
+                            </div>
+                            <div class="author-info">
+                                <h4>Daniel K.</h4>
+                                <span>Tech Entrepreneur</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"I dressed up in their corporate bundle and got hired the next week. Coincidence? I don't think so."</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">
+                                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100" alt="Azeez O." loading="lazy">
+                            </div>
+                            <div class="author-info">
+                                <h4>Azeez O.</h4>
+                                <span>Marketing Executive</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
-                    <p class="testimonial-text">"DHEMHI's boxers are literally the most comfortable thing I've worn this year. I ordered 3 more."</p>
-                    <p class="testimonial-author">— Daniel K.</p>
-                </div>
-                <div class="testimonial-card">
-                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
-                    <p class="testimonial-text">"I dressed up in their corporate bundle and got hired the next week. Coincidence? I don't think so."</p>
-                    <p class="testimonial-author">— Azeez O.</p>
+                
+                <div class="slider-controls">
+                    <button class="slider-prev" aria-label="Previous testimonial">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-next" aria-label="Next testimonial">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
 
-            <div class="cta-container center">
-                <a href="#" class="btn btn-outline">See More Reviews</a>
+            <div class="cta-container center" data-aos="fade-up">
+                <a href="#" class="btn btn-outline btn-magnetic">See More Reviews</a>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="section about-section">
+    <section class="section about-section" data-scroll-section>
         <div class="section-container">
-            <h2 class="section-title">Meet the Founder — Ayomide Juliana</h2>
-            
             <div class="about-content">
-                <div class="about-text">
+                <div class="about-text" data-aos="fade-right">
+                    <span class="section-label">Our Founder</span>
+                    <h2 class="section-title">Meet Ayomide Juliana</h2>
                     <p>With 10+ years of experience as a brand strategist and content creator, Ayomide Juliana is the visionary behind both the AJB and DEMI brands. Her mission? To help young people launch their dreams and look the part while doing it.</p>
-                    <div class="cta-container">
-                        <a href="#" class="btn btn-primary"><i class="fab fa-instagram"></i> Follow on Instagram</a>
-                        <a href="#" class="btn btn-secondary"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+                    <p>What began as a passion for empowering entrepreneurs has grown into two thriving brands that transform both wardrobes and business visions.</p>
+                    
+                    <div class="about-signature">
+                        <img src="assets/signature.png" alt="Ayomide Juliana's Signature" loading="lazy">
+                    </div>
+                    
+                    <div class="about-cta">
+                        <a href="https://www.instagram.com/ayomidejuliana.co?igsh=NWhyMjFrN2ZjM3o3" class="btn btn-primary btn-magnetic">
+                            <i class="fab fa-instagram"></i> Follow on Instagram
+                        </a>
+                        <a href="https://wa.link/2929l7" class="btn btn-secondary btn-magnetic">
+                            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                        </a>
                     </div>
                 </div>
-                <div class="about-image">
-                    <!-- Image will be added in CSS -->
+                
+                <div class="about-image" data-aos="fade-left" data-aos-delay="200">
+                    <div class="image-frame">
+                        <img src="assets/AJB.jpg" alt="Ayomide Juliana" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section" data-scroll-section>
+        <div class="section-container">
+            <div class="cta-content" data-aos="fade-up">
+                <h2>Ready to Build Your Business and Wear Your Power?</h2>
+                <p>Join hundreds of ambitious entrepreneurs who trust AJB and DEMI for their business and fashion needs.</p>
+                <div class="cta-buttons">
+                    <a href="#shop" class="btn btn-primary btn-large btn-magnetic">Shop DEMI Fashion</a>
+                    <a href="#register" class="btn btn-secondary btn-large btn-magnetic">Register My Business</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer Section -->
-    <footer class="footer">
+    <footer id="contact" class="footer" data-scroll-section>
         <div class="footer-container">
-            <div class="footer-logo">
-                <a href="#" class="logo">The Dhemhi Brand</a>
-                <p>Build Your Business. Wear Your Power.</p>
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#" class="logo">The Ayomide Juliana</a>
+                    <p>Build Your Business. Wear Your Power.</p>
+                    
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/ayomidejuliana.co?igsh=NWhyMjFrN2ZjM3o3" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://wa.link/2929l7" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@ayomidejuliana.co?_r=1&_d=e0icem4ak35gak&sec_uid=MS4wLjABAAAAs4TjkGbneIpp1XACI2LVzfP-bJP_MhDsVxs2PfxxvP5Not41nagYsBJW5RMqLSgf&share_author_id=7083833862224380934&sharer_language=en&source=h5_m&u_code=e15fdggc1ck72m&timestamp=1745163878&user_id=7083833862224380934&sec_user_id=MS4wLjABAAAAs4TjkGbneIpp1XACI2LVzfP-bJP_MhDsVxs2PfxxvP5Not41nagYsBJW5RMqLSgf&utm_source=copy&utm_campaign=client_share&utm_medium=android&share_iid=7494629269907113734&share_link_id=a5c756a7-1280-44e3-9fc5-ef7105d35341&share_app_id=1233&ugbiz_name=ACCOUNT&ug_btm=b8727%2Cb7360&social_share_type=5&enable_checksum=1" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="links-column">
+                        <h4>Shop DEMI</h4>
+                        <ul>
+                            <li><a href="#">Men's Collection</a></li>
+                            <li><a href="#">Women's Collection</a></li>
+                            <li><a href="#">Corporate Bundles</a></li>
+                            <li><a href="#">Accessories</a></li>
+                            <li><a href="#">New Arrivals</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="links-column">
+                        <h4>AJB Services</h4>
+                        <ul>
+                            <li><a href="#">CAC Registration</a></li>
+                            <li><a href="#">Business Naming</a></li>
+                            <li><a href="#">Brand Launcher</a></li>
+                            <li><a href="#">Consultation</a></li>
+                            <li><a href="#">FAQs</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="links-column">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Our Story</a></li>
+                            <li><a href="#">Testimonials</a></li>
+                            <li><a href="#">Blog</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="links-column">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="#">Shipping Policy</a></li>
+                            <li><a href="#">Returns & Exchanges</a></li>
+                            <li><a href="#">Size Guide</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             
-            <div class="footer-links">
-                <div class="links-column">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#">Shop</a></li>
-                        <li><a href="#">Register</a></li>
-                        <li><a href="#">Freebies</a></li>
-                        <li><a href="#">Testimonials</a></li>
-                    </ul>
-                </div>
-                <div class="links-column">
-                    <h4>Contact</h4>
-                    <ul class="social-links">
-                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
-                        <li><a href="#"><i class="fab fa-tiktok"></i> TikTok</a></li>
-                        <li><a href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
-                    </ul>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <p>&copy; 2025 The Dhemhi Brand & AJB. All Rights Reserved.</p>
+                    <div class="payment-methods">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-paypal"></i>
+                        <i class="fab fa-cc-apple-pay"></i>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2025 The Dhemhi Brand & AJB. All Rights Reserved.</p>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <a href="#home" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollToPlugin.min.js"></script>
     <script src="script.js"></script>
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "The Dhemhi Brand | AJB",
+      "url": "https://ayomide-juliana-brand.netlify.app",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://ayomide-juliana-brand.netlify.app/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
 </body>
 </html>
